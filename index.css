@@ -1,0 +1,24 @@
+:root{
+	--grid-width: 10px;
+	--grid-height: 10px;
+	--food-color: red;
+}
+*{
+	margin:0;
+	padding:0;
+}
+.game{
+	width: var(--grid-width);
+	height: var(--grid-height);
+	background-color: black;
+}
+.food{
+	width: var(--grid-width);
+	height: var(--grid-height);
+	background-color: var(--food-color);
+	box-shadow: 0 0 10px var(--food-color);
+}
+.player_square{
+	background-color: blue;
+	border: 1px solid lightblue;
+}

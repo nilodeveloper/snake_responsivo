@@ -20,7 +20,7 @@ window.addEventListener('resize', ()=>{
 
 // Controla a snake pelas setas do teclado
 document.addEventListener('keydown', (e)=>{
-	direction = e.key.toString().replace('Arrow', '').toLowerCase()
+		direction = e.key.toString().replace('Arrow', '').toLowerCase()
 })
 
 // Controla a snake pelos toques na tela do dispositivo
@@ -77,9 +77,21 @@ function createPlayer(initial_length){
 }
 
 function update(){
-	setInterval(()=>{
-		updatePlayer()
+	setInterval(()=>{	
+		if(verifyGameBorder())
+			updatePlayer()
 	}, UPDATE_CICLE)	
+}
+
+function verifyGameBorder(){
+	if(position_player.x <= window.innerWidth-(10*(player.length-2)) && position_player.x >= 10){
+		if(position_player.y >= 10 && position_player.y <= window.innerHeight-(10*(player.length-2)))
+			return true
+		else
+			return false
+	}else{
+		return false
+	}
 }
 
 function updatePlayer(){

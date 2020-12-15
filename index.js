@@ -30,6 +30,8 @@ document.addEventListener('click', (e)=>{
 	}else{
 		direction_number -= 1
 	}
+	direction_by_number()
+	direction_cicle()
 })
 
 function direction_by_number(){

@@ -1,9 +1,11 @@
 //Definições do game
-
-var player = [] // Posição dos quadrados do player
+const UPDATE_CICLE = 120
+var player = []
 var player_initial_length = 3
-const UPDATE_CICLE = 1000
-var move_square = 0
+var position_player = { x: 70, y: 10}
+var direction = 'right'
+var direction_number = 4
+
 // Definições de eventos
 window.addEventListener('load', ()=>{
 	setGameStage()
@@ -15,6 +17,42 @@ window.addEventListener('load', ()=>{
 window.addEventListener('resize', ()=>{
 	setGameStage()
 })
+
+// Controla a snake pelas setas do teclado
+document.addEventListener('keydown', (e)=>{
+	direction = e.key.toString().replace('Arrow', '').toLowerCase()
+})
+
+// Controla a snake pelos toques na tela do dispositivo
+document.addEventListener('click', (e)=>{
+	if(e.clientX >= window.innerWidth/2){
+		direction_number += 1
+	}else{
+		direction_number -= 1
+	}
+})
+
+function direction_by_number(){
+	if(direction_number == 1)
+		direction = 'down'
+	if(direction_number == 2)
+		direction = 'left'
+	if(direction_number == 3)
+		direction = 'up'
+	if(direction_number == 4)
+		direction = 'right'
+}
+
+function direction_cicle(){
+	if(direction_number == 5){
+		direction_number = 1
+		direction = 'down'
+	}
+	if(direction_number == 0){
+		direction_number = 4
+		direction = 'right'
+	}
+}
 
 //Game functions
 function setGameStage(){
@@ -43,9 +81,28 @@ function update(){
 }
 
 function updatePlayer(){
-	renderPlayer()
+	if(direction == 'right'){
+		position_player.x += 10
+	}else if(direction == 'left'){
+		position_player.x -= 10
+	}else if(direction == 'up'){
+		position_player.y -= 10
+	}else{
+		position_player.y += 10
+	}
+	renderPlayerPosition()
 }
-
+function renderPlayerPosition(){
+	let player_square = document.createElement('div')		
+	player_square.classList.add('player_square')
+	player_square.classList.add('player_square'+position_player.x+position_player.y)
+	addToGameStage(player_square)
+	setElementSize('.player_square'+position_player.x+position_player.y, 10)
+	point = {x: position_player.x, y: position_player.y}
+	setPosition('.player_square'+position_player.x+position_player.y, point)
+	player = document.querySelectorAll('.player_square')
+	player[0].remove()
+}
 function createFood(){
 	let food = document.createElement('div')
 	food.classList.add('food')

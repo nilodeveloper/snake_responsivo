@@ -141,12 +141,13 @@ function randomPosition(element){
 }
 
 function getRandomPoint(element){
-	let position_x = Math.round(Math.random() * (getGameStageHeight()-getElementSize(element))/10)*10;
-	let position_y = Math.round(Math.random() * (getGameStageHeight()-getElementSize(element))/10)*10;
+	let position_x = Math.round((Math.random() * (getGameStageWidth()-getElementSize(element)))/10)*10;
+	let position_y = Math.round((Math.random() * (getGameStageHeight()-getElementSize(element)))/10)*10;
 	let point = {
 		x: position_x,
 		y: position_y
 	}			
+	console.log(point)
 	food_position = point;
 	return point
 }

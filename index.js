@@ -1,15 +1,14 @@
 //Definições do game
 const UPDATE_CICLE = 120
 var player = []
-var player_initial_length = 3
-var position_player = { x: 70, y: 10}
+var player_length = 3
 var direction = 'right'
 var direction_number = 4
 var food_position = {}
 // Definições de eventos
 window.addEventListener('load', ()=>{
 	setGameStage()
-	createPlayer(player_initial_length)
+	createPlayer(player_length)
 	createFood()			
 	update()
 })
@@ -71,16 +70,28 @@ function createPlayer(initial_length){
 		setElementSize('.player_square'+i, 10)
 		point = {x: 10*i+50, y: 10}
 		setPosition('.player_square'+i, point)
+		position_player = point	
 	}
 	player = document.querySelectorAll('.player_square')
-	console.log('player', player)
 }
+
+function growPlayer(){
+		let player_square = document.createElement('div')		
+		player_square.classList.add('player_square')
+		player_square.classList.add('player_square'+player_length)
+		addToGameStage(player_square)
+		setElementSize('.player_square'+player_length, 10)
+		setPosition('.player_square'+player_length, position_player)	
+		player = document.querySelectorAll('.player_square')
+}
+
 function colisionPlayer(){			
 	if(position_player.x <= food_position.x && position_player.x >= food_position.x - 9){
 		if(position_player.y >= food_position.y && position_player.y <= food_position.y + 9){
-			console.log('colisão detectada!')
 			document.querySelector('.food').remove()
 			createFood()
+			player_length += 1
+			growPlayer(player_length)
 		}
 	}
 }
@@ -93,8 +104,8 @@ function update(){
 }
 
 function verifyGameBorder(){
-	if(position_player.x <= window.innerWidth-(10*(player.length-2)) && position_player.x >= 10){
-		if(position_player.y >= 10 && position_player.y <= window.innerHeight-(10*(player.length-2)))
+	if(position_player.x <= window.innerWidth-(8) && position_player.x >= 8){
+		if(position_player.y >= 8 && position_player.y <= window.innerHeight-(8))
 			return true
 		else
 			return false

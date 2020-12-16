@@ -5,7 +5,7 @@ var player_initial_length = 3
 var position_player = { x: 70, y: 10}
 var direction = 'right'
 var direction_number = 4
-
+var food_position = {}
 // Definições de eventos
 window.addEventListener('load', ()=>{
 	setGameStage()
@@ -75,9 +75,18 @@ function createPlayer(initial_length){
 	player = document.querySelectorAll('.player_square')
 	console.log('player', player)
 }
-
+function colisionPlayer(){			
+	if(position_player.x <= food_position.x && position_player.x >= food_position.x - 9){
+		if(position_player.y >= food_position.y && position_player.y <= food_position.y + 9){
+			console.log('colisão detectada!')
+			document.querySelector('.food').remove()
+			createFood()
+		}
+	}
+}
 function update(){
 	setInterval(()=>{	
+		colisionPlayer()
 		if(verifyGameBorder())
 			updatePlayer()
 	}, UPDATE_CICLE)	
@@ -104,6 +113,7 @@ function updatePlayer(){
 	}else{
 		position_player.y += 10
 	}
+	colisionPlayer()
 	renderPlayerPosition()
 }
 function renderPlayerPosition(){
@@ -131,12 +141,13 @@ function randomPosition(element){
 }
 
 function getRandomPoint(element){
-	let position_x = Math.random() * (getGameStageWidth()-getElementSize(element));
-	let position_y = Math.random() * (getGameStageHeight()-getElementSize(element));
+	let position_x = Math.round(Math.random() * (getGameStageHeight()-getElementSize(element))/10)*10;
+	let position_y = Math.round(Math.random() * (getGameStageHeight()-getElementSize(element))/10)*10;
 	let point = {
 		x: position_x,
 		y: position_y
-	}
+	}			
+	food_position = point;
 	return point
 }
 

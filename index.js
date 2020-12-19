@@ -1,10 +1,13 @@
 //Definições do game
 const UPDATE_CICLE = 120
+const WidthGame = window.innerWidth
+const HeightGame = window.innerHeight
 var player = []
 var player_length = 3
 var direction = 'right'
 var direction_number = 4
 var food_position = {}
+
 // Definições de eventos
 window.addEventListener('load', ()=>{
 	setGameStage()
@@ -57,8 +60,8 @@ function direction_cicle(){
 
 //Game functions
 function setGameStage(){
-	document.querySelector('.game').style.width = window.innerWidth
-	document.querySelector('.game').style.height = window.innerHeight
+	document.querySelector('.game').style.width = WidthGame
+	document.querySelector('.game').style.height = HeightGame
 }
 
 function createPlayer(initial_length){

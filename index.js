@@ -27,7 +27,7 @@ document.addEventListener('keydown', (e)=>{
 
 // Controla a snake pelos toques na tela do dispositivo
 document.addEventListener('click', (e)=>{
-	if(e.clientX >= window.innerWidth/2){
+	if(e.clientX >= WidthGame/2){
 		direction_number += 1
 	}else{
 		direction_number -= 1
@@ -107,8 +107,8 @@ function update(){
 }
 
 function verifyGameBorder(){
-	if(position_player.x <= window.innerWidth-(8) && position_player.x >= 8){
-		if(position_player.y >= 8 && position_player.y <= window.innerHeight-(8))
+	if(position_player.x <= WidthGame-(8) && position_player.x >= 8){
+		if(position_player.y >= 8 && position_player.y <= HeightGame-(8))
 			return true
 		else
 			return false
@@ -189,8 +189,8 @@ function getPositionX(element){
 	return parseInt(document.querySelector(element).style.left.replace('px', ''))
 }
 function getGameStageWidth(){
-	return window.innerWidth
+	return WidthGame
 }
 function getGameStageHeight(){
-	return window.innerHeight
+	return HeightGame
 }
